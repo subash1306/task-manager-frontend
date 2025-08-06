@@ -12,6 +12,11 @@ function Register() {
     alert('Registered! Please login.');
     navigate('/login');
   };
+// OLD (for local dev)
+axios.get('http://localhost:5000/api/tasks');
+
+// NEW (after deploy)
+axios.get(`${process.env.REACT_APP_API_URL}/tasks`);
 
   return (
     // Add Bootstrap wrapper and spacing
