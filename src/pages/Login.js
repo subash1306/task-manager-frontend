@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';  // ✅ Add Link here
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -10,9 +10,13 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', form);
+      const res = await axios.post(
+        'https://task-manager-backend-4-gjh5.onrender.com/api/auth/login', // ✅ Make sure your backend route is correct!
+        form
+      );
       localStorage.setItem('token', res.data.token);
       toast.success("Logged in successfully!");
+      console.log("Login success, navigating now...");
       navigate('/dashboard');
     } catch (err) {
       toast.error("Invalid email or password!");
@@ -35,6 +39,11 @@ function Login() {
         required
       />
       <button type="submit">Login</button>
+
+      {/* ✅ Add Register link below */}
+      <p>
+        Don't have an account? <Link to="/register">Register here</Link>
+      </p>
     </form>
   );
 }

@@ -11,7 +11,6 @@ import './App.css';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 // 🔹 React Logo Home Page (Default Boilerplate UI)
 function Home() {
   return (
@@ -34,9 +33,11 @@ function Home() {
   );
 }
 
-// 🔹 Main App Component with Routing + ToastContainer
 function App() {
   const isLoggedIn = !!localStorage.getItem('token');
+
+  // Log the login status to the console
+  console.log("Is user logged in?", isLoggedIn);
 
   return (
     <>
@@ -73,5 +74,5 @@ function App() {
     </>
   );
 }
-
 export default App;
+

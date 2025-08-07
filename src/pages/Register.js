@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -8,48 +9,39 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/api/auth/register', form);
-    alert('Registered! Please login.');
-    navigate('/login');
+    try {
+      await axios.post('https://task-manager-backend-4-gjh5.onrender.com/api/auth/register', form);
+      toast.success('Registered successfully! Please login.');
+      navigate('/login');
+    } catch (err) {
+      toast.error('Registration failed. Please try again.');
+    }
   };
-// OLD (for local dev)
-axios.get('http://localhost:5000/api/tasks');
-
-// NEW (after deploy)
-axios.get(`${process.env.REACT_APP_API_URL}/tasks`);
 
   return (
-    // Add Bootstrap wrapper and spacing
-    <div className="container mt-5">
-      <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm bg-light">
-        <h2 className="mb-4 text-center">Register</h2>
-
-        <input
-          type="text"
-          placeholder="Name"
-          className="form-control mb-3"
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="form-control mb-3"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="form-control mb-4"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          required
-        />
-        <button type="submit" className="btn btn-primary w-100">Register</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h2>Register</h2>
+      <input
+        type="text"
+        placeholder="Name"
+        onChange={(e) => setForm({ ...form, name: e.target.value })}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setForm({ ...form, email: e.target.value })}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setForm({ ...form, password: e.target.value })}
+        required
+      />
+      <button type="submit">Register</button>
+    </form>
   );
 }
 
 export default Register;
-

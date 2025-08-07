@@ -11,7 +11,7 @@ function Dashboard() {
     const fetchTasks = async () => {
       setLoading(true);
       try {
-        const res = await axios.get('http://localhost:5000/api/tasks', {
+        const res = await axios.get('https://task-manager-backend-4-gjh5.onrender.com', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
